@@ -16,7 +16,6 @@ namespace Checkers2.Services
             this.board = board;
         }
 
-        //find the neighbors of a square
         public List<Square> GetNeighbors(Square square)
         {
             List<Square> neighbors = new List<Square>();
@@ -41,7 +40,6 @@ namespace Checkers2.Services
             return neighbors;
         }   
 
-        //highlight the possible moves for a piece by making the square color yellow
         public void HighlightMoves(Piece piece)
         {
             if (piece == null)
@@ -54,7 +52,7 @@ namespace Checkers2.Services
             {
                 if (neighbor.Piece == null)
                 {
-                    neighbor.Color = "#ffff00";
+                    neighbor.Color = "#ffff00";//yellow
                 }
             }
         }
