@@ -26,11 +26,11 @@ namespace Checkers2.Services
                     {
                         if (i < 3)
                         {
-                            row.Add(new Square(i, j, true, new Piece(false, false)));
+                            row.Add(new Square(i, j, true, new Piece(true, false)));
                         }
                         else if (i > 4)
                         {
-                            row.Add(new Square(i, j, true, new Piece(true, false)));
+                            row.Add(new Square(i, j, true, new Piece(false, false)));
                         }
                         else
                         {
