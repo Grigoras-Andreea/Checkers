@@ -27,6 +27,9 @@
                                     <Border Width="50" Height="50" BorderThickness="1" BorderBrush="#000000" Background="{Binding Color}">
                                         <Image Source="{Binding Image}" />
                                     </Border>
+                                    <Button Command="{Binding ClickCommand}" CommandParameter="{Binding SimpleSquare}">
+                                        
+                                    </Button>
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

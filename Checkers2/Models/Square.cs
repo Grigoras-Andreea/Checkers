@@ -69,6 +69,11 @@ namespace Checkers2.Models
         public string Color
         {
             get { return color; }
+            set
+            {
+                color = value;
+                NotifyPropertyChanged("Color");
+            }
         }
 
 

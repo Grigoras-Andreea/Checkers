@@ -1,4 +1,6 @@
-﻿using Checkers2.Models;
+﻿using Checkers2.Commands;
+using Checkers2.Models;
+using Checkers2.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,27 +11,24 @@ using System.Windows.Input;
 
 namespace Checkers2.ViewModels
 {
-    internal class SquareVM : INotifyPropertyChanged
+    internal class SquareVM : BaseNotification
     {
         private Square square;
+        private ICommand clickCommand;
+        //private ICommand moveCommand;
+        private Square simpleSquare;
+        private GameBusinessLogic bl;
 
-        public SquareVM(Square square)
+        public SquareVM(Square square, GameBusinessLogic bl)
         {
             this.square = square;
-            // Subscribe to property changed event of the Square
-            this.square.PropertyChanged += Square_PropertyChanged;
+            this.bl = bl; // Initialize bl
+
         }
 
-        private void Square_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            // Forward property changed event to listeners
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(e.PropertyName));
-        }
-
-        // Expose properties needed for binding in the UI
         public string Image
         {
-            get { return square.Piece?.Image; } // Get image from the Piece if it exists
+            get { return square.Piece?.Image; }
         }
 
         public string Color
@@ -37,6 +36,28 @@ namespace Checkers2.ViewModels
             get { return square.Color; }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public Square SimpleSquare
+        {
+            get { return simpleSquare; }
+            set
+            {
+                simpleSquare = value;
+                NotifyPropertyChanged("SimpleSquare");
+            }
+        }
+
+        public ICommand ClickCommand
+        {
+            get
+            {
+                if (clickCommand == null)
+                {
+                    clickCommand = new RelayCommand<Square>(bl.ClickAction);
+                }
+                return clickCommand;
+            }
+        }
+
+        
     }
 }
