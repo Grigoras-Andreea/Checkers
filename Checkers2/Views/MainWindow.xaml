@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Checkers2.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="950" Width="800"
+        Title="MainWindow" Height="750" Width="800"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         >
     <Window.DataContext>
         <local:GameVM/>
     </Window.DataContext>
     <Grid>
-        <ItemsControl x:Name="Grid" ItemsSource="{Binding Board}" Margin="15 100 15 15" >
+        <ItemsControl x:Name="Grid" ItemsSource="{Binding Board}" Margin="200 100 100 100" >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <ItemsControl ItemsSource="{Binding}">
