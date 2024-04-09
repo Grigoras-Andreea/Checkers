@@ -14,26 +14,11 @@ namespace Checkers2.Models
         private Square square;
         private string image;
 
-        public Piece(bool isRed, bool isKing)
+        public Piece(bool isRed, bool isKing, string image)
         {
             this.isRed = isRed;
             this.isKing = isKing;
-            if(isRed && !isKing)
-            {
-                image = "/Checkers2;component/Resources/RedPiece.png";
-            }
-            else if(isRed && isKing)
-            {
-                image = "/Checkers2;component/Resources/RedKing.png";
-            }
-            else if(!isRed && !isKing)
-            {
-                image = "/Checkers2;component/Resources/WhitePiece.png";
-            }
-            else
-            {
-                image = "/Checkers2;component/Resources/WhiteKing.png";
-            }
+            this.image = image;
         }
 
         public bool IsRed

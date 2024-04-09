@@ -2,18 +2,29 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Checkers2.Services
 {
-    internal class GameBusinessLogic
+    internal class GameBusinessLogic : BaseNotification
     {
         ObservableCollection<ObservableCollection<Square>> board;
         public GameBusinessLogic(ObservableCollection<ObservableCollection<Square>> board)
         {
             this.board = board;
+        }
+
+        public ObservableCollection<ObservableCollection<Square>> Board
+        {
+            get { return board; }
+            set
+            {
+                board = value;
+                NotifyPropertyChanged("Board");
+            }
         }
 
         public List<Square> GetNeighbors(Square square)
@@ -38,7 +49,7 @@ namespace Checkers2.Services
                 neighbors.Add(board[row + 1][column + 1]);
             }
             return neighbors;
-        }   
+        }
 
         public void HighlightMoves(Piece piece)
         {
@@ -46,22 +57,26 @@ namespace Checkers2.Services
             {
                 return;
             }
+
             Square square = piece.Square;
             List<Square> neighbors = GetNeighbors(square);
+
             foreach (Square neighbor in neighbors)
             {
                 if (neighbor.Piece == null)
                 {
-                    neighbor.Color = "#ffff00";//yellow
+                    neighbor.Color = "#000000";
+                    board[neighbor.Row][neighbor.Column].Color = "#000000";
                 }
             }
         }
 
         public void ClickAction(Square square)
         {
+            square.Piece.Square = square;
             HighlightMoves(square.Piece);
+
         }
-        
 
     }
 }

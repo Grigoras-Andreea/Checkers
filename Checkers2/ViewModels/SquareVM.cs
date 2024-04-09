@@ -16,35 +16,33 @@ namespace Checkers2.ViewModels
         private Square square;
         private ICommand clickCommand;
         //private ICommand moveCommand;
-        private Square simpleSquare;
         private GameBusinessLogic bl;
 
         public SquareVM(Square square, GameBusinessLogic bl)
         {
             this.square = square;
-            this.bl = bl; // Initialize bl
+            this.bl = bl;
+            SimpleSquare = square;
 
         }
 
         public string Image
         {
             get { return square.Piece?.Image; }
+            
         }
 
         public string Color
         {
             get { return square.Color; }
-        }
-
-        public Square SimpleSquare
-        {
-            get { return simpleSquare; }
             set
             {
-                simpleSquare = value;
-                NotifyPropertyChanged("SimpleSquare");
+                square.Color = value;
+                NotifyPropertyChanged("Color Change");
             }
         }
+
+        public Square SimpleSquare { get; set; }
 
         public ICommand ClickCommand
         {

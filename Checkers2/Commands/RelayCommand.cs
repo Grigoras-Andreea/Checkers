@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace Checkers2.Commands
 {
-    public class RelayCommand<T> : ICommand
+    class RelayCommand<T> : ICommand
     {
         private Action<T> commandTask;
         private Predicate<T> canExecuteTask;
@@ -38,11 +38,13 @@ namespace Checkers2.Commands
         {
             add
             {
+                //+=asociaza un handler la un eveniment
                 CommandManager.RequerySuggested += value;
             }
 
             remove
             {
+                //-=sterge un handler de la un eveniment
                 CommandManager.RequerySuggested -= value;
             }
         }

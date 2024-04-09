@@ -23,14 +23,18 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid>
+                                
                                     <Border Width="50" Height="50" BorderThickness="1" BorderBrush="#000000" Background="{Binding Color}">
-                                        <Image Source="{Binding Image}" />
+                                        <Button Command="{Binding ClickCommand}" CommandParameter="{Binding SimpleSquare}">
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <Image Source="{Binding Image}" Stretch="UniformToFill"/>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
                                     </Border>
-                                    <Button Command="{Binding ClickCommand}" CommandParameter="{Binding SimpleSquare}">
-                                        
-                                    </Button>
-                                </Grid>
+                                    
+                                
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

@@ -11,7 +11,6 @@ namespace Checkers2.ViewModels
 {
     internal class GameVM
     {
-        public ObservableCollection<ObservableCollection<SquareVM>> Board { get; set;}
         private GameBusinessLogic bl;
 
         public GameVM()
@@ -35,5 +34,6 @@ namespace Checkers2.ViewModels
             }
             return newBoard;
         }
+        public ObservableCollection<ObservableCollection<SquareVM>> Board { get; set;}
     }
 }
