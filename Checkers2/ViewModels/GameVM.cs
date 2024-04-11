@@ -1,4 +1,5 @@
-﻿using Checkers2.Models;
+﻿using Checkers2.Commands;
+using Checkers2.Models;
 using Checkers2.Services;
 using System;
 using System.Collections.Generic;
@@ -6,34 +7,48 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Checkers2.ViewModels
 {
     internal class GameVM
     {
         private GameBusinessLogic bl;
+        public ObservableCollection<ObservableCollection<Square>> Board { get; set; }
 
         public GameVM()
         {
-            ObservableCollection<ObservableCollection<Square>> board = Helper.initBoard();
+            ObservableCollection<ObservableCollection<Square>> board = Helper.InitBoard();
+            Board = board;
             bl = new GameBusinessLogic(board);
-            Board = ConvertBoard(board);
         }
 
-        private ObservableCollection<ObservableCollection<SquareVM>> ConvertBoard(ObservableCollection<ObservableCollection<Square>> board)
+        private ICommand clickCommand;
+
+        public ICommand ClickCommand
         {
-            ObservableCollection<ObservableCollection<SquareVM>> newBoard = new ObservableCollection<ObservableCollection<SquareVM>>();
-            foreach (ObservableCollection<Square> row in board)
+            get
             {
-                ObservableCollection<SquareVM> newRow = new ObservableCollection<SquareVM>();
-                foreach (Square square in row)
+                if(clickCommand == null)
                 {
-                    newRow.Add(new SquareVM(square, bl));
+                    clickCommand = new RelayCommand<Square>(bl.SelectOrMovePiece);
                 }
-                newBoard.Add(newRow);
+                return clickCommand;
             }
-            return newBoard;
         }
-        public ObservableCollection<ObservableCollection<SquareVM>> Board { get; set;}
+
+        /*private ICommand moveCommand;
+
+        public ICommand MoveCommand
+        {
+            get
+            {
+                if (moveCommand == null)
+                {
+                    moveCommand = new RelayCommand<Square>(bl.MovePiece);
+                }
+                return moveCommand;
+            }
+        }*/
     }
 }

@@ -10,36 +10,50 @@ namespace Checkers2.Services
 {
     internal class Helper
     {
-        public static ObservableCollection<ObservableCollection<Square>> initBoard()
+        public static ObservableCollection<ObservableCollection<Square>> InitBoard()
         {
             ObservableCollection<ObservableCollection<Square>> board = new ObservableCollection<ObservableCollection<Square>>();
+
             for (int i = 0; i < 8; i++)
             {
                 ObservableCollection<Square> row = new ObservableCollection<Square>();
+
                 for (int j = 0; j < 8; j++)
                 {
-                    if ((i + j) % 2 == 0)
-                    {
-                        row.Add(new Square(i, j, false, null));
-                    }
-                    else
+                    bool isBlack = (i + j) % 2 == 1; // Alternating black and white squares
+
+                    // Setting up pieces on initial positions
+                    Piece piece;
+                    if (isBlack)
                     {
                         if (i < 3)
                         {
-                            row.Add(new Square(i, j, true, new Piece(true, false, "/Checkers2;component/Resources/RedPiece.png")));
+                            //white pieces
+                            piece = new Piece(false, false, false);
                         }
                         else if (i > 4)
                         {
-                            row.Add(new Square(i, j, true, new Piece(false, false, "/Checkers2;component/Resources/WhitePiece.png")));
+                            //red pieces
+                            piece = new Piece(true, false, false);
                         }
                         else
                         {
-                            row.Add(new Square(i, j, true, null));
+                            // Empty squares
+                            piece = new Piece(false, true, true);
                         }
                     }
+                    else
+                    {
+                        piece = new Piece(false, true, true);
+                    }
+
+                    // Creating the square
+                    Square square = new Square(i, j, isBlack, piece);
+                    row.Add(square);
                 }
                 board.Add(row);
             }
+
             return board;
         }
     }

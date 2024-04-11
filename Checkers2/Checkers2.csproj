@@ -70,7 +70,6 @@
     <Compile Include="Services\GameBusinessLogic.cs" />
     <Compile Include="Services\Helper.cs" />
     <Compile Include="ViewModels\GameVM.cs" />
-    <Compile Include="ViewModels\SquareVM.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -102,7 +101,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Transparent.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\RedKing.png" />
     <Resource Include="Resources\RedPiece.png" />

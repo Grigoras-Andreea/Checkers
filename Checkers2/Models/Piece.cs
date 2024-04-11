@@ -11,14 +11,41 @@ namespace Checkers2.Models
     {
         private bool isRed;
         private bool isKing;
-        private Square square;
         private string image;
+        private bool isNull;
 
-        public Piece(bool isRed, bool isKing, string image)
+        public Piece(bool isRed, bool isKing, bool isNull)
         {
             this.isRed = isRed;
             this.isKing = isKing;
-            this.image = image;
+            this.isNull = isNull;
+            if (isNull)
+            {
+                image = "/Checkers2;component/Resources/Transparent.png";
+            }
+            else if (isRed)
+            {
+                if (isKing)
+                {
+                    image = "/Checkers2;component/Resources/RedKing.png";
+                }
+                else
+                {
+                    image = "/Checkers2;component/Resources/RedPiece.png";
+                }
+            }
+            else
+            {
+                if (isKing)
+                {
+                    image = "/Checkers2;component/Resources/WhiteKing.png";
+                }
+                else
+                {
+                    image = "/Checkers2;component/Resources/WhitePiece.png";
+                }
+            }
+
         }
 
         public bool IsRed
@@ -39,15 +66,7 @@ namespace Checkers2.Models
                 NotifyPropertyChanged("IsKing");
             }
         }
-        public Square Square
-        {
-            get { return square; }
-            set
-            {
-                square = value;
-                NotifyPropertyChanged("Square");
-            }
-        }
+        
         public string Image
         {
             get { return image; }
@@ -55,6 +74,15 @@ namespace Checkers2.Models
             {
                 image = value;
                 NotifyPropertyChanged("Image");
+            }
+        }
+        public bool IsNull
+        {
+            get { return isNull; }
+            set
+            {
+                isNull = value;
+                NotifyPropertyChanged("IsNull");
             }
         }
     }

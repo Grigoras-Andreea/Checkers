@@ -11,15 +11,15 @@ namespace Checkers2.Models
         private int row;
         private int column;
         private bool isBlack;
-        private Piece piece;
         private string color;
+        private Piece piece;
+        private bool isEmpty;
 
         public Square(int row, int column, bool isBlack, Piece piece)
         {
             this.row = row;
             this.column = column;
             this.isBlack = isBlack;
-            this.piece = piece;
             if (isBlack)
             {
                 color = "#603f20";
@@ -27,6 +27,16 @@ namespace Checkers2.Models
             else
             {
                 color = "#e6ccb3";
+            }
+
+            this.piece = piece;
+            if(piece.IsNull)
+            {
+                isEmpty = true;
+            }
+            else
+            {
+                isEmpty = false;
             }
         }
 
@@ -57,15 +67,7 @@ namespace Checkers2.Models
                 NotifyPropertyChanged("IsBlack");
             }
         }
-        public Piece Piece
-        {
-            get { return piece; }
-            set
-            {
-                piece = value;
-                NotifyPropertyChanged("Piece");
-            }
-        }
+        
         public string Color
         {
             get { return color; }
@@ -76,6 +78,25 @@ namespace Checkers2.Models
             }
         }
 
+        public Piece Piece
+        {
+            get { return piece; }
+            set
+            {
+                piece = value;
+                NotifyPropertyChanged("Piece");
+            }
+        }
+
+        public bool IsEmpty
+        {
+            get { return isEmpty; }
+            set
+            {
+                isEmpty = value;
+                NotifyPropertyChanged("IsEmpty");
+            }
+        }
 
     }
 }
