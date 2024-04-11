@@ -160,13 +160,187 @@ namespace Checkers2.Services
             return neighbors;
         }
 
+        public ObservableCollection<Square> GetJumpNeighbors(Square square)
+        {
+            if (!square.Piece.IsNull)
+            {
+                if (square.Piece.IsKing && !square.Piece.IsRed)
+                {
+                    return GetWhiteKingJumpNeighbors(square);
+                }
+                else if (square.Piece.IsKing && square.Piece.IsRed)
+                {
+                    return GetRedKingJumpNeighbors(square);
+                }
+                else if (square.Piece.IsRed)
+                {
+                    return GetRedJumpNeighbors(square);
+                }
+                else
+                {
+                    return GetWhiteJumpNeighbors(square);
+                }
+            }
+            return null;
+        }
+
+        private ObservableCollection<Square> GetWhiteKingJumpNeighbors(Square square)
+        {
+            ObservableCollection<Square> neighbors = new ObservableCollection<Square>();
+            int row = square.Row;
+            int column = square.Column;
+
+            // Check top-left neighbor
+            if (row > 1 && column > 1)
+            {
+                Square topLeftNeighbor = Board[row - 1][column - 1];
+                if (!topLeftNeighbor.Piece.IsNull && topLeftNeighbor.Piece.IsRed && Board[row - 2][column - 2].Piece.IsNull)
+                    neighbors.Add(Board[row - 2][column - 2]);
+            }
+
+            // Check top-right neighbor
+            if (row > 1 && column < 6)
+            {
+                Square topRightNeighbor = Board[row - 1][column + 1];
+                if (!topRightNeighbor.Piece.IsNull && topRightNeighbor.Piece.IsRed && Board[row - 2][column + 2].Piece.IsNull)
+                    neighbors.Add(Board[row - 2][column + 2]);
+            }
+
+            // Check bottom-left neighbor
+            if (row < 6 && column > 1)
+            {
+                Square bottomLeftNeighbor = Board[row + 1][column - 1];
+                if (!bottomLeftNeighbor.Piece.IsNull && bottomLeftNeighbor.Piece.IsRed && Board[row + 2][column - 2].Piece.IsNull)
+                    neighbors.Add(Board[row + 2][column - 2]);
+            }
+
+            // Check bottom-right neighbor
+            if (row < 6 && column < 6)
+            {
+                Square bottomRightNeighbor = Board[row + 1][column + 1];
+                if (!bottomRightNeighbor.Piece.IsNull && bottomRightNeighbor.Piece.IsRed && Board[row + 2][column + 2].Piece.IsNull)
+                    neighbors.Add(Board[row + 2][column + 2]);
+            }
+
+            return neighbors;
+        }
+
+        private ObservableCollection<Square> GetRedKingJumpNeighbors(Square square)
+        {
+            ObservableCollection<Square> neighbors = new ObservableCollection<Square>();
+            int row = square.Row;
+            int column = square.Column;
+
+            // Check top-left neighbor
+            if (row > 1 && column > 1)
+            {
+                Square topLeftNeighbor = Board[row - 1][column - 1];
+                if (!topLeftNeighbor.Piece.IsNull && !topLeftNeighbor.Piece.IsRed && Board[row - 2][column - 2].Piece.IsNull)
+                    neighbors.Add(Board[row - 2][column - 2]);
+            }
+
+            // Check top-right neighbor
+            if (row > 1 && column < 6)
+            {
+                Square topRightNeighbor = Board[row - 1][column + 1];
+                if (!topRightNeighbor.Piece.IsNull && !topRightNeighbor.Piece.IsRed && Board[row - 2][column + 2].Piece.IsNull)
+                    neighbors.Add(Board[row - 2][column + 2]);
+            }
+
+            // Check bottom-left neighbor
+            if (row < 6 && column > 1)
+            {
+                Square bottomLeftNeighbor = Board[row + 1][column - 1];
+                if (!bottomLeftNeighbor.Piece.IsNull && !bottomLeftNeighbor.Piece.IsRed && Board[row + 2][column - 2].Piece.IsNull)
+                    neighbors.Add(Board[row + 2][column - 2]);
+            }
+
+            // Check bottom-right neighbor
+            if (row < 6 && column < 6)
+            {
+                Square bottomRightNeighbor = Board[row + 1][column + 1];
+                if (!bottomRightNeighbor.Piece.IsNull && !bottomRightNeighbor.Piece.IsRed && Board[row + 2][column + 2].Piece.IsNull)
+                    neighbors.Add(Board[row + 2][column + 2]);
+            }
+
+            return neighbors;
+        }
+
+        private ObservableCollection<Square> GetWhiteJumpNeighbors(Square square)
+        {
+            ObservableCollection<Square> neighbors = new ObservableCollection<Square>();
+            int row = square.Row;
+            int column = square.Column;
+
+            // Check bottom-left neighbor
+            if (row < 6 && column > 1)
+            {
+                Square bottomLeftNeighbor = Board[row + 1][column - 1];
+                if (!bottomLeftNeighbor.Piece.IsNull && bottomLeftNeighbor.Piece.IsRed && Board[row + 2][column - 2].Piece.IsNull)
+                    neighbors.Add(Board[row + 2][column - 2]);
+            }
+
+            // Check bottom-right neighbor
+            if (row < 6 && column < 6)
+            {
+                Square bottomRightNeighbor = Board[row + 1][column + 1];
+                if (!bottomRightNeighbor.Piece.IsNull && bottomRightNeighbor.Piece.IsRed && Board[row + 2][column + 2].Piece.IsNull)
+                    neighbors.Add(Board[row + 2][column + 2]);
+            }
+
+            return neighbors;
+        }
+
+        private ObservableCollection<Square> GetRedJumpNeighbors(Square square)
+        {
+            ObservableCollection<Square> neighbors = new ObservableCollection<Square>();
+            int row = square.Row;
+            int column = square.Column;
+
+            // Check top-left neighbor
+            if (row > 1 && column > 1)
+            {
+                Square topLeftNeighbor = Board[row - 1][column - 1];
+                if (!topLeftNeighbor.Piece.IsNull && !topLeftNeighbor.Piece.IsRed && Board[row - 2][column - 2].Piece.IsNull)
+                    neighbors.Add(Board[row - 2][column - 2]);
+            }
+
+            // Check top-right neighbor
+            if (row > 1 && column < 6)
+            {
+                Square topRightNeighbor = Board[row - 1][column + 1];
+                if (!topRightNeighbor.Piece.IsNull && !topRightNeighbor.Piece.IsRed && Board[row - 2][column + 2].Piece.IsNull)
+                    neighbors.Add(Board[row - 2][column + 2]);
+            }
+
+            return neighbors;
+        }
+
+        public ObservableCollection<Square> HighlightJumpNeighbors(Square square)
+        {
+            ObservableCollection<Square> neighbors = GetJumpNeighbors(square);
+            if (neighbors != null)
+            {
+                foreach (Square neighbor in neighbors)
+                {
+                    // Check if the neighbor is empty
+                    if (neighbor.Piece == null || neighbor.Piece.IsNull)
+                    {
+                        // Highlight the neighbor by changing its color
+                        neighbor.Color = "#00ff00"; // Red color
+                    }
+                }
+            }
+            return neighbors;
+        }
+
         public void ResetBoard()
         {
             foreach (ObservableCollection<Square> row in Board)
             {
                 foreach (Square square in row)
                 {
-                    if (square.Color == "#ff0000")
+                    if (square.Color == "#ff0000" || square.Color == "#00ff00")
                     {
                         square.Color = "#603f20"; // Black color
                     }
@@ -191,6 +365,20 @@ namespace Checkers2.Services
 
         }
 
+        public void UpdateBoardWithJumpNeighbors(Square square)
+        {
+            source = square;
+            ObservableCollection<Square> neighbors = HighlightJumpNeighbors(square);
+            if (neighbors != null)
+            {
+                foreach (Square neighbor in neighbors)
+                {
+                    // Update the square on the board with the values of the neighbor
+                    Board[neighbor.Row][neighbor.Column].Color = neighbor.Color;
+                }
+            }
+        }
+
         public bool IsSelected()
         {
             if (source != null)
@@ -201,7 +389,7 @@ namespace Checkers2.Services
                 {
                     foreach (Square square in row)
                     {
-                        if (square.Color == "#ff0000")
+                        if (square.Color == "#ff0000" || square.Color == "#00ff00")
                         {
                             return true;
                         }
@@ -209,6 +397,20 @@ namespace Checkers2.Services
                 }
             }
             return false;
+        }
+
+        public void TransformPiece(Square square)
+        {
+            if (square.Piece.IsRed && square.Row == 0)
+            {
+                square.Piece.IsKing = true;
+                square.Piece.Image = "/Checkers2;component/Resources/RedKing.png";
+            }
+            else if (!square.Piece.IsRed && square.Row == 7)
+            {
+                square.Piece.IsKing = true;
+                square.Piece.Image = "/Checkers2;component/Resources/WhiteKing.png";
+            }
         }
 
         public void MovePiece(Square destination)
@@ -228,6 +430,27 @@ namespace Checkers2.Services
 
                     // Reset board colors
                     ResetBoard();
+                    TransformPiece(destination);
+                }
+                else if (destination.Color == "#00ff00")
+                {
+                    // Move the piece to the destination square
+                    destination.Piece = source.Piece;
+                    destination.Color = source.Color;
+
+                    // Clear the source square
+                    source.Piece = new Piece(false, true, true);
+                    source.Color = "#603f20";
+
+                    // Clear the jumped piece
+                    int row = (source.Row + destination.Row) / 2;
+                    int column = (source.Column + destination.Column) / 2;
+                    Board[row][column].Piece = new Piece(false, true, true);
+                    Board[row][column].Color = "#603f20";
+
+                    // Reset board colors
+                    ResetBoard();
+                    TransformPiece(destination);
                 }
             }
         }
@@ -237,16 +460,18 @@ namespace Checkers2.Services
             if(source == null)
             {
                 UpdateBoardWithNeighbors(square);
+                UpdateBoardWithJumpNeighbors(square);
             }
             else
             {
-                 if (square.Color == "#ff0000")
+                 if (square.Color == "#ff0000" || square.Color == "#00ff00")
                  {
                     MovePiece(square);
                  }
                  else
                  {
                     UpdateBoardWithNeighbors(square);
+                    UpdateBoardWithJumpNeighbors(square);
                  }
             }
 
