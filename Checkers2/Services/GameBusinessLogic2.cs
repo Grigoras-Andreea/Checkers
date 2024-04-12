@@ -585,6 +585,8 @@ namespace Checkers2.Services
                 }
                 else if (destination.Color == "#00ff00")
                 {
+                    // Similar logic as above for handling multiple jumps
+
                     // Move the piece to the destination square
                     destination.Piece = source.Piece;
                     destination.Color = source.Color;
@@ -599,16 +601,26 @@ namespace Checkers2.Services
                     Board[row][column].Piece = new Piece(false, true, true);
                     Board[row][column].Color = "#603f20";
 
-                    // Reset board colors
-                    ResetBoard();
+                    // Transform the piece if it reaches the opposite side
                     TransformPiece(destination);
 
-                    Player1Score = GetRedScore();
-                    Player2Score = GetWhiteScore();
+                    ResetBoard();
 
-                    // Toggle the turn to the next player
-                    Turn = (Turn + 1) % 2;
-                    WinGame();
+                    // Check if another jump is possible from the destination square
+                    ObservableCollection<Square> jumpNeighbors = GetJumpNeighbors(destination);
+                    if (jumpNeighbors != null && jumpNeighbors.Count > 0)
+                    {
+                        // Highlight the jump neighbors and update the board
+                        UpdateBoardWithJumpNeighbors(destination);
+                    }
+                    else
+                    {
+                        // No more jumps available, toggle the turn to the next player
+                        Turn = (Turn + 1) % 2;
+                        Player1Score = GetRedScore();
+                        Player2Score = GetWhiteScore();
+                        WinGame();
+                    }
                 }
             }
         }
