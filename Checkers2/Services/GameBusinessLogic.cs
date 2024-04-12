@@ -16,6 +16,8 @@ namespace Checkers2.Services
 
         Square source;
         int turn = 0;
+        private int player1Score = 12;
+        private int player2Score = 12;
 
         public ObservableCollection<ObservableCollection<Square>> Board
         {
@@ -26,6 +28,66 @@ namespace Checkers2.Services
                 NotifyPropertyChanged("Board");
             }
         }
+
+        public int Player1Score
+        {
+            get { return player1Score; }
+            set
+            {
+                if (player1Score != value)
+                {
+                    player1Score = value;
+                    NotifyPropertyChanged("Player1Score");
+                }
+            }
+        }
+
+        public int Player2Score
+        {
+            get { return player2Score; }
+            set
+            {
+                if (player2Score != value)
+                {
+                    player2Score = value;
+                    NotifyPropertyChanged("Player2Score");
+                }
+            }
+        }
+
+        public int GetRedScore()
+        {
+            int redScore = 0;
+            foreach (ObservableCollection<Square> row in Board)
+            {
+                foreach (Square square in row)
+                {
+                    if (!square.Piece.IsNull && square.Piece.IsRed)
+                    {
+                        redScore++;
+                    }
+                }
+            }
+            return redScore;
+
+        }
+
+        public int GetWhiteScore()
+        {
+            int whiteScore = 0;
+            foreach (ObservableCollection<Square> row in Board)
+            {
+                foreach (Square square in row)
+                {
+                    if (!square.Piece.IsNull && !square.Piece.IsRed)
+                    {
+                        whiteScore++;
+                    }
+                }
+            }
+            return whiteScore;
+        }
+
         public GameBusinessLogic(ObservableCollection<ObservableCollection<Square>> board)
         {
             Board = board;
@@ -49,6 +111,8 @@ namespace Checkers2.Services
             }
             return null;
         }
+
+        
 
         private ObservableCollection<Square> GetKingNeighbors(Square square)
         {
@@ -431,6 +495,9 @@ namespace Checkers2.Services
                     // Reset board colors
                     ResetBoard();
                     TransformPiece(destination);
+
+                    Player1Score = GetRedScore();
+                    Player2Score = GetWhiteScore();
                 }
                 else if (destination.Color == "#00ff00")
                 {
@@ -451,6 +518,9 @@ namespace Checkers2.Services
                     // Reset board colors
                     ResetBoard();
                     TransformPiece(destination);
+
+                    Player1Score = GetRedScore();
+                    Player2Score = GetWhiteScore();
                 }
             }
         }

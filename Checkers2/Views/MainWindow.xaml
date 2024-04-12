@@ -34,7 +34,7 @@
                                             </ControlTemplate>
                                         </Button.Template>
                                     </Button>
-                                    
+
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -42,5 +42,9 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        
+        <Label Content="{Binding Player1Score}" HorizontalAlignment="Left" Margin="200,37,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Player2Score}" HorizontalAlignment="Left" Margin="563,37,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>
