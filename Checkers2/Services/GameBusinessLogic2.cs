@@ -1,16 +1,14 @@
 ﻿using Checkers2.Models;
-using Checkers2.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Checkers2.Services
 {
-    internal class GameBusinessLogic : BaseNotification
+    internal class GameBusinessLogic2 : BaseNotification
     {
         private ObservableCollection<ObservableCollection<Square>> board;
 
@@ -125,13 +123,13 @@ namespace Checkers2.Services
             return whiteScore;
         }
 
-        public GameBusinessLogic(ObservableCollection<ObservableCollection<Square>> board)
+        public GameBusinessLogic2(ObservableCollection<ObservableCollection<Square>> board)
         {
             Board = board;
         }
         public ObservableCollection<Square> GetNeighbors(Square square)
         {
-            if(!square.Piece.IsNull)
+            if (!square.Piece.IsNull)
             {
                 if (square.Piece.IsKing && square.Piece.IsRed && Turn == 0)
                 {
@@ -153,7 +151,7 @@ namespace Checkers2.Services
             return null;
         }
 
-        
+
 
         private ObservableCollection<Square> GetRedKingNeighbors(Square square)
         {
@@ -617,25 +615,24 @@ namespace Checkers2.Services
 
         public void SelectOrMovePiece(Square square)
         {
-            if(source == null)
+            if (source == null)
             {
                 UpdateBoardWithNeighbors(square);
                 UpdateBoardWithJumpNeighbors(square);
             }
             else
             {
-                 if (square.Color == "#ff0000" || square.Color == "#00ff00")
-                 {
+                if (square.Color == "#ff0000" || square.Color == "#00ff00")
+                {
                     MovePiece(square);
-                 }
-                 else
-                 {
+                }
+                else
+                {
                     UpdateBoardWithNeighbors(square);
                     UpdateBoardWithJumpNeighbors(square);
-                 }
+                }
             }
 
         }
-
     }
 }

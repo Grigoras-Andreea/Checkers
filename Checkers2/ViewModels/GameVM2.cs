@@ -12,9 +12,9 @@ using System.Windows.Input;
 
 namespace Checkers2.ViewModels
 {
-    internal class GameVM : BaseNotification
+    internal class GameVM2 : BaseNotification
     {
-        private GameBusinessLogic bl;
+        private GameBusinessLogic2 bl;
         public ObservableCollection<ObservableCollection<Square>> Board { get; set; }
 
 
@@ -67,11 +67,11 @@ namespace Checkers2.ViewModels
             }
         }
 
-        public GameVM()
+        public GameVM2()
         {
             ObservableCollection<ObservableCollection<Square>> board = Helper.InitBoard();
             Board = board;
-            bl = new GameBusinessLogic(board);
+            bl = new GameBusinessLogic2(board);
             bl.PropertyChanged += Bl_PropertyChanged;
 
         }
@@ -103,14 +103,14 @@ namespace Checkers2.ViewModels
         {
             get
             {
-                if(clickCommand == null)
+                if (clickCommand == null)
                 {
                     clickCommand = new RelayCommand<Square>(bl.SelectOrMovePiece);
                 }
                 return clickCommand;
             }
         }
-        
+
 
         /*private ICommand moveCommand;
 
