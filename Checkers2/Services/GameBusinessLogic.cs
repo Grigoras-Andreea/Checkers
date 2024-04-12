@@ -55,6 +55,20 @@ namespace Checkers2.Services
             }
         }
 
+        public int Turn
+        {
+            get { return turn; }
+            set
+            {
+                if (turn != value)
+                {
+                    turn = value;
+                    NotifyPropertyChanged("Turn");
+                    NotifyPropertyChanged("IsPlayer1Turn"); // Add this line
+                }
+            }
+        }
+
         public int GetRedScore()
         {
             int redScore = 0;
@@ -96,19 +110,19 @@ namespace Checkers2.Services
         {
             if(!square.Piece.IsNull)
             {
-                if (square.Piece.IsKing && square.Piece.IsRed && turn == 0)
+                if (square.Piece.IsKing && square.Piece.IsRed && Turn == 0)
                 {
                     return GetRedKingNeighbors(square);
                 }
-                else if (square.Piece.IsKing && !square.Piece.IsRed && turn == 1)
+                else if (square.Piece.IsKing && !square.Piece.IsRed && Turn == 1)
                 {
                     return GetWhiteKingNeighbors(square);
                 }
-                else if (square.Piece.IsRed && turn == 0)
+                else if (square.Piece.IsRed && Turn == 0)
                 {
                     return GetRedNeighbors(square);
                 }
-                else if (!square.Piece.IsRed && turn == 1)
+                else if (!square.Piece.IsRed && Turn == 1)
                 {
                     return GetWhiteNeighbors(square);
                 }
@@ -273,19 +287,19 @@ namespace Checkers2.Services
         {
             if (!square.Piece.IsNull)
             {
-                if (square.Piece.IsKing && !square.Piece.IsRed && turn == 1)
+                if (square.Piece.IsKing && !square.Piece.IsRed && Turn == 1)
                 {
                     return GetWhiteKingJumpNeighbors(square);
                 }
-                else if (square.Piece.IsKing && square.Piece.IsRed && turn == 0)
+                else if (square.Piece.IsKing && square.Piece.IsRed && Turn == 0)
                 {
                     return GetRedKingJumpNeighbors(square);
                 }
-                else if (square.Piece.IsRed && turn == 0)
+                else if (square.Piece.IsRed && Turn == 0)
                 {
                     return GetRedJumpNeighbors(square);
                 }
-                else if (!square.Piece.IsRed && turn == 1)
+                else if (!square.Piece.IsRed && Turn == 1)
                 {
                     return GetWhiteJumpNeighbors(square);
                 }
@@ -545,7 +559,7 @@ namespace Checkers2.Services
                     Player2Score = GetWhiteScore();
 
                     // Toggle the turn to the next player
-                    turn = (turn + 1) % 2;
+                    Turn = (Turn + 1) % 2;
                 }
                 else if (destination.Color == "#00ff00")
                 {
@@ -571,7 +585,7 @@ namespace Checkers2.Services
                     Player2Score = GetWhiteScore();
 
                     // Toggle the turn to the next player
-                    turn = (turn + 1) % 2;
+                    Turn = (Turn + 1) % 2;
                 }
             }
         }

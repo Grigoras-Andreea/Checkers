@@ -60,6 +60,7 @@ namespace Checkers2.ViewModels
             Board = board;
             bl = new GameBusinessLogic(board);
             bl.PropertyChanged += Bl_PropertyChanged;
+
         }
 
         private void Bl_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -67,12 +68,14 @@ namespace Checkers2.ViewModels
             if (e.PropertyName == "Player1Score")
             {
                 Player1Score = bl.Player1Score;
-                IsPlayer1Turn = bl.turn == 0; // Update based on the turn
             }
             else if (e.PropertyName == "Player2Score")
             {
                 Player2Score = bl.Player2Score;
-                IsPlayer1Turn = bl.turn == 1; // Update based on the turn
+            }
+            if (e.PropertyName == "IsPlayer1Turn")
+            {
+                IsPlayer1Turn = bl.Turn == 0;
             }
         }
 
