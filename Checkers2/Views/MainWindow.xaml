@@ -42,9 +42,39 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        
-        <Label Content="{Binding Player1Score}" HorizontalAlignment="Left" Margin="200,37,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding Player2Score}" HorizontalAlignment="Left" Margin="563,37,0,0" VerticalAlignment="Top"/>
+
+        <Label Content="{Binding Player1Score}" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Setter Property="Margin" Value="575,54,0,0"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsPlayer1Turn}" Value="True">
+                            <Setter Property="Foreground" Value="Green"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsPlayer1Turn}" Value="False">
+                            <Setter Property="Foreground" Value="Red"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        <Label Content="{Binding Player2Score}" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Setter Property="Margin" Value="200,54,0,0"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsPlayer1Turn}" Value="True">
+                            <Setter Property="Foreground" Value="Red"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsPlayer1Turn}" Value="False">
+                            <Setter Property="Foreground" Value="Green"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        <Label Content="Player1" HorizontalAlignment="Left" Margin="192,28,0,0" VerticalAlignment="Top"/>
+        <Label Content="Player2" HorizontalAlignment="Left" Margin="562,28,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

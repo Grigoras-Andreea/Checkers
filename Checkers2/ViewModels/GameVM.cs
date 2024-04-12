@@ -19,6 +19,7 @@ namespace Checkers2.ViewModels
 
 
 
+
         private int player1Score = 12;
         private int player2Score = 12;
 
@@ -41,6 +42,18 @@ namespace Checkers2.ViewModels
                 NotifyPropertyChanged("Player2Score");
             }
         }
+
+        private bool isPlayer1Turn = true;
+
+        public bool IsPlayer1Turn
+        {
+            get { return isPlayer1Turn; }
+            set
+            {
+                isPlayer1Turn = value;
+                NotifyPropertyChanged("IsPlayer1Turn");
+            }
+        }
         public GameVM()
         {
             ObservableCollection<ObservableCollection<Square>> board = Helper.InitBoard();
@@ -54,10 +67,12 @@ namespace Checkers2.ViewModels
             if (e.PropertyName == "Player1Score")
             {
                 Player1Score = bl.Player1Score;
+                IsPlayer1Turn = bl.turn == 0; // Update based on the turn
             }
             else if (e.PropertyName == "Player2Score")
             {
                 Player2Score = bl.Player2Score;
+                IsPlayer1Turn = bl.turn == 1; // Update based on the turn
             }
         }
 

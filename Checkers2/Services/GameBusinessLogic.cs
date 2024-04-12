@@ -15,7 +15,7 @@ namespace Checkers2.Services
         private ObservableCollection<ObservableCollection<Square>> board;
 
         Square source;
-        int turn = 0;
+        public int turn = 0;
         private int player1Score = 12;
         private int player2Score = 12;
 
@@ -96,15 +96,19 @@ namespace Checkers2.Services
         {
             if(!square.Piece.IsNull)
             {
-                if (square.Piece.IsKing)
+                if (square.Piece.IsKing && square.Piece.IsRed && turn == 0)
                 {
-                    return GetKingNeighbors(square);
+                    return GetRedKingNeighbors(square);
                 }
-                else if (square.Piece.IsRed)
+                else if (square.Piece.IsKing && !square.Piece.IsRed && turn == 1)
+                {
+                    return GetWhiteKingNeighbors(square);
+                }
+                else if (square.Piece.IsRed && turn == 0)
                 {
                     return GetRedNeighbors(square);
                 }
-                else
+                else if (!square.Piece.IsRed && turn == 1)
                 {
                     return GetWhiteNeighbors(square);
                 }
@@ -114,7 +118,48 @@ namespace Checkers2.Services
 
         
 
-        private ObservableCollection<Square> GetKingNeighbors(Square square)
+        private ObservableCollection<Square> GetRedKingNeighbors(Square square)
+        {
+            ObservableCollection<Square> neighbors = new ObservableCollection<Square>();
+            int row = square.Row;
+            int column = square.Column;
+
+            // Check top-left neighbor
+            if (row > 0 && column > 0)
+            {
+                Square topLeftNeighbor = Board[row - 1][column - 1];
+                if (topLeftNeighbor != null && topLeftNeighbor.Piece.IsNull)
+                    neighbors.Add(topLeftNeighbor);
+            }
+
+            // Check top-right neighbor
+            if (row > 0 && column < 7)
+            {
+                Square topRightNeighbor = Board[row - 1][column + 1];
+                if (topRightNeighbor != null && topRightNeighbor.Piece.IsNull)
+                    neighbors.Add(topRightNeighbor);
+            }
+
+            // Check bottom-left neighbor
+            if (row < 7 && column > 0)
+            {
+                Square bottomLeftNeighbor = Board[row + 1][column - 1];
+                if (bottomLeftNeighbor != null && bottomLeftNeighbor.Piece.IsNull)
+                    neighbors.Add(bottomLeftNeighbor);
+            }
+
+            // Check bottom-right neighbor
+            if (row < 7 && column < 7)
+            {
+                Square bottomRightNeighbor = Board[row + 1][column + 1];
+                if (bottomRightNeighbor != null && bottomRightNeighbor.Piece.IsNull)
+                    neighbors.Add(bottomRightNeighbor);
+            }
+
+            return neighbors;
+        }
+
+        private ObservableCollection<Square> GetWhiteKingNeighbors(Square square)
         {
             ObservableCollection<Square> neighbors = new ObservableCollection<Square>();
             int row = square.Row;
@@ -228,19 +273,19 @@ namespace Checkers2.Services
         {
             if (!square.Piece.IsNull)
             {
-                if (square.Piece.IsKing && !square.Piece.IsRed)
+                if (square.Piece.IsKing && !square.Piece.IsRed && turn == 1)
                 {
                     return GetWhiteKingJumpNeighbors(square);
                 }
-                else if (square.Piece.IsKing && square.Piece.IsRed)
+                else if (square.Piece.IsKing && square.Piece.IsRed && turn == 0)
                 {
                     return GetRedKingJumpNeighbors(square);
                 }
-                else if (square.Piece.IsRed)
+                else if (square.Piece.IsRed && turn == 0)
                 {
                     return GetRedJumpNeighbors(square);
                 }
-                else
+                else if (!square.Piece.IsRed && turn == 1)
                 {
                     return GetWhiteJumpNeighbors(square);
                 }
@@ -498,6 +543,9 @@ namespace Checkers2.Services
 
                     Player1Score = GetRedScore();
                     Player2Score = GetWhiteScore();
+
+                    // Toggle the turn to the next player
+                    turn = (turn + 1) % 2;
                 }
                 else if (destination.Color == "#00ff00")
                 {
@@ -521,6 +569,9 @@ namespace Checkers2.Services
 
                     Player1Score = GetRedScore();
                     Player2Score = GetWhiteScore();
+
+                    // Toggle the turn to the next player
+                    turn = (turn + 1) % 2;
                 }
             }
         }
