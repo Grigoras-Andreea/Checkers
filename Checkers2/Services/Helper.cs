@@ -2,9 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace Checkers2.Services
 {
@@ -56,5 +59,55 @@ namespace Checkers2.Services
 
             return board;
         }
+
+        public static void SaveBoard(ObservableCollection<ObservableCollection<Square>> board, string filePath)
+        {
+            // Create a root-level element for the board data
+            XElement root = new XElement("Board");
+
+            // Serialize each row of squares and add them to the root element
+            foreach (var row in board)
+            {
+                XElement rowElement = new XElement("Row");
+                foreach (var square in row)
+                {
+                    // Serialize the square and add it to the row element
+                    XElement squareElement = new XElement("Square");
+                    // Add properties of square to squareElement
+                    squareElement.Add(new XElement("Row", square.Row));
+                    squareElement.Add(new XElement("Column", square.Column));
+                    // Add piece data if square is not empty
+                    if (!square.IsEmpty)
+                    {
+                        XElement pieceElement = new XElement("Piece");
+                        pieceElement.Add(new XElement("IsRed", square.Piece.IsRed));
+                        pieceElement.Add(new XElement("IsKing", square.Piece.IsKing));
+                        pieceElement.Add(new XElement("Image", square.Piece.Image));
+                        squareElement.Add(pieceElement);
+                    }
+                    rowElement.Add(squareElement);
+                }
+                root.Add(rowElement);
+            }
+
+            // Save the root element to the XML file
+            root.Save(filePath);
+        }
+
+        public static ObservableCollection<ObservableCollection<Square>> LoadBoard(string filePath)
+        {
+            ObservableCollection<ObservableCollection<Square>> board;
+
+            // Deserialize the board from XML
+            XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<ObservableCollection<Square>>));
+
+            using (FileStream fs = new FileStream(filePath, FileMode.Open))
+            {
+                board = (ObservableCollection<ObservableCollection<Square>>)serializer.Deserialize(fs);
+            }
+
+            return board;
+        }
+
     }
 }

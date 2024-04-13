@@ -1,6 +1,7 @@
 ﻿using Checkers2.Commands;
 using Checkers2.Models;
 using Checkers2.Services;
+using Checkers2.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,8 +17,8 @@ namespace Checkers2.ViewModels
     {
         private GameBusinessLogic bl;
         public ObservableCollection<ObservableCollection<Square>> Board { get; set; }
-
-
+        public ICommand MainMenuCommand { get; }
+        public ICommand SaveGameCommand { get; }
 
 
         private int player1Score = 12;
@@ -73,7 +74,8 @@ namespace Checkers2.ViewModels
             Board = board;
             bl = new GameBusinessLogic(board);
             bl.PropertyChanged += Bl_PropertyChanged;
-
+            MainMenuCommand = new RelayCommand<object>(OpenMainMenuWindow);
+            SaveGameCommand = new RelayCommand<object>(SaveGame);
         }
 
         private void Bl_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -110,20 +112,19 @@ namespace Checkers2.ViewModels
                 return clickCommand;
             }
         }
-        
 
-        /*private ICommand moveCommand;
-
-        public ICommand MoveCommand
+        private void OpenMainMenuWindow(object obj)
         {
-            get
-            {
-                if (moveCommand == null)
-                {
-                    moveCommand = new RelayCommand<Square>(bl.MovePiece);
-                }
-                return moveCommand;
-            }
-        }*/
+            var mainMenuWindow = new MainMenu();
+            mainMenuWindow.Show();
+        }
+
+        private void SaveGame(object obj)
+        {
+            Helper.SaveBoard(Board, "Game1.xml");
+
+            var saveGameWindow = new MainMenu();
+            saveGameWindow.Show();
+        }
     }
 }

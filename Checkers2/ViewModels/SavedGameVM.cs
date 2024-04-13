@@ -13,11 +13,10 @@ using System.Windows.Input;
 
 namespace Checkers2.ViewModels
 {
-    internal class GameVM2 : BaseNotification
+    internal class SavedGameVM : BaseNotification
     {
-        private GameBusinessLogic2 bl;
+        private GameBusinessLogic bl;
         public ObservableCollection<ObservableCollection<Square>> Board { get; set; }
-
         public ICommand MainMenuCommand { get; }
         public ICommand SaveGameCommand { get; }
 
@@ -69,14 +68,14 @@ namespace Checkers2.ViewModels
             }
         }
 
-        public GameVM2()
+        public SavedGameVM()
         {
             ObservableCollection<ObservableCollection<Square>> board = Helper.InitBoard();
             Board = board;
-            bl = new GameBusinessLogic2(board);
+            bl = new GameBusinessLogic(board);
             bl.PropertyChanged += Bl_PropertyChanged;
             MainMenuCommand = new RelayCommand<object>(OpenMainMenuWindow);
-            SaveGameCommand = new RelayCommand<object>(SaveGame);
+
         }
 
         private void Bl_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -114,19 +113,10 @@ namespace Checkers2.ViewModels
             }
         }
 
-
         private void OpenMainMenuWindow(object obj)
         {
             var mainMenuWindow = new MainMenu();
             mainMenuWindow.Show();
-        }
-
-        private void SaveGame(object obj)
-        {
-            Helper.SaveBoard(Board, "Game2.xml");
-
-            var saveGameWindow = new MainMenu();
-            saveGameWindow.Show();
         }
     }
 }

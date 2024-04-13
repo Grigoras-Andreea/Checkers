@@ -75,6 +75,16 @@
                 </Style>
             </Label.Style>
         </Label>
+        <Button Content="Save" HorizontalAlignment="Left" 
+                Margin="10,10,0,0" VerticalAlignment="Top"
+                Height="30" Width="85"
+                Command="{Binding SaveGameCommand}"
+                />
+        <Button Content="Menu" HorizontalAlignment="Left"
+                Margin="100,10,0,0" VerticalAlignment="Top"
+                Height="30" Width="85"
+                Command="{Binding MainMenuCommand}"
+                />
 
 
     </Grid>

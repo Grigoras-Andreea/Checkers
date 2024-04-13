@@ -57,6 +57,9 @@
     </ApplicationDefinition>
     <Compile Include="Services\GameBusinessLogic2.cs" />
     <Compile Include="ViewModels\GameVM2.cs" />
+    <Compile Include="ViewModels\MainMenuVM.cs" />
+    <Compile Include="ViewModels\SavedGameVM.cs" />
+    <Compile Include="ViewModels\SavedGameVM2.cs" />
     <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
@@ -68,6 +71,9 @@
     </Compile>
     <Compile Include="Views\MainWindow2.xaml.cs">
       <DependentUpon>MainWindow2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Statistics.xaml.cs">
+      <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\About.xaml">
       <SubType>Designer</SubType>
@@ -101,6 +107,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\MainWindow2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,6 +149,12 @@
     <Resource Include="Resources\RedPiece.png" />
     <Resource Include="Resources\WhiteKing.png" />
     <Resource Include="Resources\WhitePiece.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Game1.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Game2.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
