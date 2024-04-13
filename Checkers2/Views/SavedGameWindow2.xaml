@@ -1,0 +1,93 @@
+﻿<Window x:Class="Checkers2.Views.SavedGameWindow2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Checkers2.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow2" Height="750" Width="800"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        >
+    <Window.DataContext>
+        <local:SavedGameVM2/>
+    </Window.DataContext>
+    <!--game with multiple jumps-->
+    <Grid>
+        <ItemsControl x:Name="Grid" ItemsSource="{Binding Board}" Margin="200 100 100 100" >
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ItemsControl ItemsSource="{Binding}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Border Width="50" Height="50" BorderThickness="1" BorderBrush="#000000" Background="{Binding Color}">
+                                    </Border>
+                                    <Button Command="{Binding DataContext.ClickCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding}">
+                                        <Button.Template>
+                                            <ControlTemplate>
+                                                <Image Source="{Binding Piece.Image}" Width="40" Height="40" />
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Label Content="{Binding Player1Score}" HorizontalAlignment="Left" Margin="575,54,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Player2Score}" HorizontalAlignment="Left" Margin="200,54,0,0" VerticalAlignment="Top"/>
+        <Label Content="Player1" HorizontalAlignment="Left" Margin="192,28,0,0" VerticalAlignment="Top"/>
+        <Label Content="Player2" HorizontalAlignment="Left" Margin="562,28,0,0" VerticalAlignment="Top"/>
+        <Label HorizontalAlignment="Center" Margin="0,36,0,0" VerticalAlignment="Top">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Setter Property="Content" Value="Player1"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsPlayer1Turn}" Value="False">
+                            <Setter Property="Content" Value="Player2"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        <Label HorizontalAlignment="Center" Margin="0,596,0,0" VerticalAlignment="Top" FontSize="20">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Setter Property="Content" Value="Game in Progress"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding GameStatus}" Value="Player 2 Wins!">
+                            <Setter Property="Content" Value="Player1 Won!"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding GameStatus}" Value="Player 1 Wins!">
+                            <Setter Property="Content" Value="Player2 Won!"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+
+        <Button Content="Save" HorizontalAlignment="Left" 
+        Margin="10,10,0,0" VerticalAlignment="Top"
+        Height="30" Width="85"
+        Command="{Binding SaveGameCommand}"
+        />
+        <Button Content="Menu" HorizontalAlignment="Left"
+        Margin="100,10,0,0" VerticalAlignment="Top"
+        Height="30" Width="85"
+        Command="{Binding MainMenuCommand}"
+        />
+
+
+
+    </Grid>
+</Window>

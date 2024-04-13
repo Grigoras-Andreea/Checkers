@@ -18,6 +18,8 @@ namespace Checkers2.ViewModels
         public ICommand LoadGame1 {  get; }
         public ICommand LoadGame2 { get; }
         public ICommand LoadMainMenu { get; }
+        public ICommand LoadSavedGame1 { get; }
+        public ICommand LoadSavedGame2 { get; }
 
         public MainMenuVM()
         {
@@ -28,6 +30,20 @@ namespace Checkers2.ViewModels
             LoadGame1 = new RelayCommand<object>(OpenGame1Window);
             LoadGame2 = new RelayCommand<object>(OpenGame2Window);
             LoadMainMenu = new RelayCommand<object>(OpenMainMenuWindow);
+            LoadSavedGame1 = new RelayCommand<object>(OpenSavedGame1Window);
+            LoadSavedGame2 = new RelayCommand<object>(OpenSavedGame2Window);
+        }
+
+        private void OpenSavedGame2Window(object obj)
+        {
+            var savedGameWindow2 = new SavedGameWindow2();
+            savedGameWindow2.Show();
+        }
+
+        private void OpenSavedGame1Window(object obj)
+        {
+            var savedGameWindow = new SavedGameWindow();
+            savedGameWindow.Show();
         }
 
         private void OpenMainMenuWindow(object obj)
@@ -63,6 +79,8 @@ namespace Checkers2.ViewModels
         private void OpenSavedGameWindow(object obj)
         {
             // Logic to open the saved game window
+            var savedGameWindow = new LoadSavedGameMenu();
+            savedGameWindow.Show();
         }
 
         private void OpenStatisticsWindow(object obj)

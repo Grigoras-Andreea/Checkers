@@ -44,7 +44,7 @@ namespace Checkers2.ViewModels
             }
         }
 
-        private bool isPlayer1Turn = true;
+        private bool isPlayer1Turn;
 
         public bool IsPlayer1Turn
         {
@@ -70,12 +70,14 @@ namespace Checkers2.ViewModels
 
         public SavedGameVM()
         {
-            ObservableCollection<ObservableCollection<Square>> board = Helper.InitBoard();
-            Board = board;
-            bl = new GameBusinessLogic(board);
+            Tuple<ObservableCollection<ObservableCollection<Square>>, int> boardAndTurn = Helper.LoadBoard("D:\\School\\2nd year\\2nd sem\\MAP\\CheckersFinal\\Checkers2\\Resources\\Game1.txt");
+            Board = boardAndTurn.Item1;
+            int turn = boardAndTurn.Item2;
+            bl = new GameBusinessLogic(Board);
+            bl.Turn = turn;
             bl.PropertyChanged += Bl_PropertyChanged;
             MainMenuCommand = new RelayCommand<object>(OpenMainMenuWindow);
-
+            SaveGameCommand = new RelayCommand<object>(SaveGame);
         }
 
         private void Bl_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -117,6 +119,13 @@ namespace Checkers2.ViewModels
         {
             var mainMenuWindow = new MainMenu();
             mainMenuWindow.Show();
+        }
+        private void SaveGame(object obj)
+        {
+            Helper.SaveBoard(Board,bl.Turn, "D:\\School\\2nd year\\2nd sem\\MAP\\CheckersFinal\\Checkers2\\Resources\\Game2.txt");
+
+            var saveGameWindow = new MainMenu();
+            saveGameWindow.Show();
         }
     }
 }

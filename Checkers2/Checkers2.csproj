@@ -66,11 +66,20 @@
     <Compile Include="Views\GameMenu.xaml.cs">
       <DependentUpon>GameMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\LoadSavedGameMenu.xaml.cs">
+      <DependentUpon>LoadSavedGameMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow2.xaml.cs">
       <DependentUpon>MainWindow2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SavedGameWindow.xaml.cs">
+      <DependentUpon>SavedGameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SavedGameWindow2.xaml.cs">
+      <DependentUpon>SavedGameWindow2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
@@ -80,6 +89,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GameMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoadSavedGameMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -107,6 +120,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\MainWindow2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SavedGameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SavedGameWindow2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -151,10 +172,10 @@
     <Resource Include="Resources\WhitePiece.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Game1.xml" />
+    <Resource Include="Resources\Game1.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Game2.xml" />
+    <Resource Include="Resources\Game2.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
