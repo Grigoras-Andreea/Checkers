@@ -1,4 +1,5 @@
 ﻿using Checkers2.Commands;
+using Checkers2.Services;
 using Checkers2.Views;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,9 @@ namespace Checkers2.ViewModels
         public ICommand LoadMainMenu { get; }
         public ICommand LoadSavedGame1 { get; }
         public ICommand LoadSavedGame2 { get; }
+        public int Player1Score { get; set; }
+        public int Player2Score { get; set; }
+        public List<string> Games { get; set; }
 
         public MainMenuVM()
         {
@@ -32,6 +36,15 @@ namespace Checkers2.ViewModels
             LoadMainMenu = new RelayCommand<object>(OpenMainMenuWindow);
             LoadSavedGame1 = new RelayCommand<object>(OpenSavedGame1Window);
             LoadSavedGame2 = new RelayCommand<object>(OpenSavedGame2Window);
+
+            Helper helper = new Helper();
+
+            // Call GetResults to retrieve scores and list
+            var results = helper.GetResults("D:\\Scoala\\anul2\\sem2\\MAP\\Checkers2\\Checkers2\\Resources\\Statistics.txt");
+            Player1Score = results.Item1;
+            Player2Score = results.Item2;
+            Games = results.Item3;
+
         }
 
         private void OpenSavedGame2Window(object obj)
@@ -71,8 +84,6 @@ namespace Checkers2.ViewModels
 
             // Show the GameMenu window
             gameMenuWindow.Show();
-
-            
             
         }
 
@@ -85,7 +96,6 @@ namespace Checkers2.ViewModels
 
         private void OpenStatisticsWindow(object obj)
         {
-            // Logic to open the statistics window
             var statisticsWindow = new Statistics();
             statisticsWindow.Show();
         }

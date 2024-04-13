@@ -66,10 +66,10 @@
                     <Setter Property="Content" Value="Game in Progress"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding GameStatus}" Value="Player 2 Wins!">
-                            <Setter Property="Content" Value="Player1 Won!"/>
+                            <Setter Property="Content" Value="Player2 Won!"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding GameStatus}" Value="Player 1 Wins!">
-                            <Setter Property="Content" Value="Player2 Won!"/>
+                            <Setter Property="Content" Value="Player1 Won!"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

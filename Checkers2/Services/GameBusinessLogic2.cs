@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,10 +34,23 @@ namespace Checkers2.Services
             if (Player1Score == 0)
             {
                 GameStatus = "Player 2 Wins!";
+                WriteStatisticsToFile("Player 2", DateTime.Now);
             }
             else if (Player2Score == 0)
             {
                 GameStatus = "Player 1 Wins!";
+                WriteStatisticsToFile("Player 1", DateTime.Now);
+            }
+        }
+
+        private void WriteStatisticsToFile(string winner, DateTime date)
+        {
+            string statisticsFilePath = "D:\\Scoala\\anul2\\sem2\\MAP\\Checkers2\\Checkers2\\Resources\\Statistics.txt";
+
+            // Append winner and current date and time to the file
+            using (StreamWriter writer = File.AppendText(statisticsFilePath))
+            {
+                writer.WriteLine($"Winner: {winner}, Date: {date}");
             }
         }
 

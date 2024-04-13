@@ -3,10 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Checkers2.Views"
+        xmlns:local="clr-namespace:Checkers2.ViewModels"
         mc:Ignorable="d"
         Title="Statistics" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainMenuVM/>
+    </Window.DataContext>
     <Grid>
-        
+        <Grid>
+            <StackPanel Orientation="Vertical" Margin="20">
+                <TextBlock Text="Player 1 Wins:" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Player1Score}" Margin="5"/>
+
+                <TextBlock Text="Player 2 Wins:" FontWeight="Bold" Margin="0,20,0,0"/>
+                <TextBlock Text="{Binding Player2Score}" Margin="5"/>
+
+                <TextBlock Text="Win Dates:" FontWeight="Bold" Margin="0,20,0,0"/>
+                <ListBox ItemsSource="{Binding Games}" Margin="5" Height="100"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

@@ -115,5 +115,36 @@ namespace Checkers2.Services
             return Tuple.Create(board, turn);
         }
 
+        public Tuple<int, int, List<string>> GetResults(string filePath)
+        {
+            int player1Score = 0;
+            int player2Score = 0;
+            List<string> results = new List<string>();
+
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    // Assuming each line format is "Winner: Player X, Date: ..."
+                    // Extracting the winner
+                    int startIndex = line.IndexOf("Winner: ") + "Winner: ".Length;
+                    int commaIndex = line.IndexOf(",", startIndex);
+                    string winner = line.Substring(startIndex, commaIndex - startIndex).Trim();
+
+                    // Updating scores based on the winner
+                    if (winner == "Player 1")
+                        player1Score++;
+                    else if (winner == "Player 2")
+                        player2Score++;
+
+                    // Adding the result to the list
+                    results.Add(line);
+                }
+            }
+
+            return Tuple.Create(player1Score, player2Score, results);
+        }
+
     }
 }
