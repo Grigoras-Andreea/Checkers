@@ -123,7 +123,7 @@ namespace Checkers2.ViewModels
 
         private void SaveGame(object obj)
         {
-            Helper.SaveBoard(Board, "Game2.xml");
+            Helper.SaveBoard(Board, "D:\\School\\2nd year\\2nd sem\\MAP\\CheckersFinal\\Checkers2\\Resources\\Game2.xml");
 
             var saveGameWindow = new MainMenu();
             saveGameWindow.Show();
